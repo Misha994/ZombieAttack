@@ -20,11 +20,12 @@ public class PlayerController : MonoBehaviour
     {
         movement = Vector3.zero;
         animator.SetBool("IsRunning", false);
+        isRunning = false;
     }
 
     private void StartMove(Vector3 inputDirection)
     {
-        movement = new Vector3(inputDirection.x, 0f, inputDirection.y) * moveSpeed * Time.deltaTime;
+        movement = new Vector3(inputDirection.x, 0f, inputDirection.y) * moveSpeed;
 
         if (movement != Vector3.zero)
         {
@@ -37,12 +38,11 @@ public class PlayerController : MonoBehaviour
         isRunning = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isRunning)
         {
-            transform.Translate(movement, Space.World);
-            Debug.Log(movement);
+            transform.Translate(movement * Time.deltaTime, Space.World);
         }      
     }
 
